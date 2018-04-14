@@ -1,0 +1,116 @@
+CHANGELOG
+=========
+
+Version 2.9.0
+-------------
+
+* Update copyright text
+* Update INSTALL
+* Remove obsolete data files
+* Add some build scripts
+* Add fleetingpm.nsi
+* Remove fixed window size
+* Save and load window size
+* Add fleetingpm.pro
+
+Version 2.8.3
+-------------
+
+* Remove TryExec from .desktop-files.
+
+Version 2.8.2
+-------------
+
+* Update debian/changelog
+* Add cmake dependency to debian/control
+
+Version 2.8.1
+-------------
+
+* Fix settings and main dialogs on Qt5
+* Clear all login details on timeout
+* CMake build system
+
+Version 2.7
+-----------
+
+- Timeout for master password added
+- Cosmetic changes
+
+Version 2.6
+-----------
+
+- Stars removed from the main layout
+- Color change of "Master password" is gradual
+- Layout improved
+
+Version 2.5
+-----------
+
+- Quit-button replaced with clear-button
+- Master password label turns green when
+  password typed in
+- Window always-on-top made optional
+- Password length can be set per login
+- Default delay increased to 15 secs
+- Ctrl+W closes the program
+- Tab order includes buttons
+- Settings dialog's layout improved
+- Combo box goes to the first item when started
+
+Version 2.4
+-----------
+
+- Fixes: Import/export doesn't check for empty file name
+- Fixes: Import file dialog has incorrect title.
+- Version and name macros moved to version.h
+- Install icon also to $$_PREFIX/share/icons/hicolor/64x64/apps
+- Added application icon for Windows
+
+Version 2.3
+-----------
+
+- A new background image
+- Setting added to automatically clear the clipboard on timeout
+- Clear clipboard on close
+- The window remembers its previous location when started
+- A Proper title for the instructions dialog added
+
+Version 2.2
+-----------
+
+- Import / export of the saved logins
+- The window always stays on top
+- ComboBox is alphabetically sorted
+
+Version 2.1
+-----------
+
+- Fixed bug in saving settings
+
+Version 2.0
+-----------
+
+- Re-written in C++
+- Instructions dialog added
+- Minor bug fixes
+
+Version 1.2
+-----------
+
+- Fixed issue where "Remove URL and user"-button
+  didn't change to "Remember URL and user" after clicked.
+- Icons.py split into Images.py and Icons.py
+
+Version 1.1
+-----------
+
+- New graphics
+- Layout fixes
+- More tooltips added
+
+Version 1.0
+-----------
+
+- First stable release
+

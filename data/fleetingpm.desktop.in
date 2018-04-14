@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Fleeting Password Manager
+Comment=Generate and manage passwords for given url/id and user name
+Exec=fleetingpm
+Icon=fleetingpm
+Type=Application
+Categories=Utility;
+StartupNotify=true
+X-Ubuntu-Gettext-Domain=fleetingpm

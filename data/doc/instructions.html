@@ -1,0 +1,77 @@
+<html>
+<head>
+<title>Instructions for Fleeting Password Manager</title></head>
+<body>
+
+<h1><center><u>Instructions for Fleeting Password Manager</u></center></h1>
+
+<h2>General</h2>
+<p>
+Fleeting Password Manager is a simple program that generates highly secure pseudo-random passwords from the given <b>master password, URL/ID</b> (e.g. facebook, www.facebook.com, google, my_server..) and <b>user name</b>. The user needs to remember only her master password to recover other passwords. Passwords are always regenerated on-the-fly from the given login data when needed and are never saved. In other words, Fleeting Password Manager combines the password creation and management. The length of the generated password is configurable between 8 and 32 characters and Fleeting Password Manager can remember wanted URL/User-pairs. 
+</p>
+
+<h2>Examples</h2>
+<h3>Example 1</h3>
+<p>
+For login information:
+</p>
+<table border="1">
+<tr><td>Master password:</td><td>qwerty123</td></tr>
+<tr><td>URL/ID:</td><td>www.facebook.com</td></tr>
+<tr><td>User name:</td><td>john.doe@example.com</td></tr>
+</table>
+<p>
+The generated 8-char password is always: OGM2ZjVk.
+</p>
+<p>
+This password can then be copy-pasted to the facebook
+login field.
+</p>
+
+<h3>Example 2</h3>
+<p>
+Notice, that the URL doesn't have to be the <b>real</b> URL,
+it just has to be <b>exactly</b> the same every time, something 
+that you remember. You can use "gmail" for Gmail, "facebook" 
+for www.facebook.com, "linkedin" for www.linkedin.com and so on. 
+</p>
+<p>
+For login information:
+</p>
+<table border="1">
+<tr><td>Master password:</td><td>qwerty123</td></tr>
+<tr><td>URL:</td><td>facebook</td></tr>
+<tr><td>User:</td><td>john.doe@example.com</td></tr>
+</table>
+<p>
+The generated 8-char password is now always: ZjQxOWM1.
+</p>
+<h2>Importing / exporting saved logins</h2>
+<p>
+As mentioned before, Fleeting Password Manager never saves
+any passwords. However, the user name, url/id and length can be saved.
+This data can also be exported and imported from the file menu.
+</p>
+<p>
+The exported data is saved in XML-format. Importing logins never
+deletes the previous ones, but may update already existing url/id's 
+with new user names.
+</p>
+
+<h2>Location of the settings and saved logins</h2>
+<p>
+On Linux, the settings data is located as a simple text file in
+the user's home directory:
+
+    ~/.config/fleetingpm/fleetingpm.conf
+</p>
+<p>
+If you copy this file to the same location in some other
+Linux-based system, you'll get the same saved logins and settings.
+</p>
+<p>
+On Windows, the system registry is used.
+</p>
+<br>
+</body>
+</html>

@@ -1,0 +1,93 @@
+#!/bin/bash
+
+# Assumes, that you have installed (static) qt5 to ~/qt5.
+
+APP_NAME=fleetingpm
+PRO=./fleetingpm.pro
+
+QT5_QMAKE=~/qt5/bin/qmake
+if ! which $QT5_QMAKE; then
+    echo "$QT5_QMAKE not found."
+    exit -1
+fi
+
+TAR=tar
+if ! which $TAR; then
+    echo "$TAR not found."
+    exit -1
+fi
+
+LRELEASE=lrelease
+if ! which $LRELEASE; then
+    echo "$LRELEASE not found."
+    exit -1
+fi
+
+NUM_CPUS=$(cat /proc/cpuinfo | grep processor | wc -l)
+
+# Package naming
+
+NAME=$APP_NAME
+VERSION=${FLEETINGPM_RELEASE_VERSION?"is not set."}
+ARCH=linux-x86_64
+QT=qt5
+
+# Build
+
+$QT5_QMAKE $PRO && make -j$NUM_CPUS || exit -1
+
+# Install to packaging dir
+
+PACKAGE_PATH=$NAME-$VERSION-$ARCH-$QT
+rm -rf $PACKAGE_PATH
+mkdir $PACKAGE_PATH
+
+cp -v ./$APP_NAME $PACKAGE_PATH &&
+cp -rv data $PACKAGE_PATH            || exit -1
+
+TEXT_FILES="AUTHORS CHANGELOG COPYING README"
+cp -v $TEXT_FILES $PACKAGE_PATH || exit -1
+
+# Copy some needed dependecies
+
+cp -v $(ldd $PACKAGE_PATH/$APP_NAME | 
+  grep "/usr/lib"    | 
+  grep -v nvidia     |
+  grep -v libX       |
+  grep -v fontconfig |
+  grep -v gobject    |
+  grep -v libGL      |
+  grep -v libgl      |
+  grep -v xcb        | awk '{print $3}') $PACKAGE_PATH
+
+# Additional libs
+
+LIBS=png
+for lib in $LIBS; do
+cp -v $(ldd $PACKAGE_PATH/$APP_NAME | grep $lib | awk '{print $3}') $PACKAGE_PATH
+done
+
+# Create qt.conf (this is needed for possible plugin conflicts)
+
+QTCONF=$PACKAGE_PATH/qt.conf
+echo "[Paths]" > $QTCONF
+echo "Plugins = '.'" >> $QTCONF
+
+# Create start script for the app
+
+cp $PACKAGE_PATH/$APP_NAME $PACKAGE_PATH/bin.x
+SCRIPT=$PACKAGE_PATH/$APP_NAME
+echo "#!/bin/sh" > $SCRIPT
+echo "LD_LIBRARY_PATH=. ./bin.x" >> $SCRIPT
+chmod 755 $SCRIPT
+
+# Create tgz archive
+
+TGZ_ARCHIVE=$PACKAGE_PATH.tar.gz
+rm -f $TGZ_ARCHIVE
+$TAR czvf $TGZ_ARCHIVE $PACKAGE_PATH
+
+ls -ltr
+
+echo "Done."
+
