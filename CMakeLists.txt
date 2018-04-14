@@ -112,6 +112,14 @@ else()
     target_link_libraries(${BINARY_NAME} ${QT_LIBRARIES})
 endif()
 
+if(OS2)
+set_target_properties(fleetingpm PROPERTIES
+ OS2_DEF_VENDOR "Elbert Pol"
+ OS2_DEF_PATCH "${fleetingpm_VERSION_PATCH}"
+ OS2_DEF_VERSION "${FLEETINGPM_VERSION}"
+ OS2_DEF_EXEType "WINDOWAPI")
+endif()
+
 # Set default install paths
 set(BIN_PATH bin)
 set(DATA_PATH ${CMAKE_INSTALL_PREFIX}/share/${BINARY_NAME}/data)
@@ -126,9 +134,9 @@ if(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
             set(CMAKE_INSTALL_PREFIX /usr)
         endif()
 
-        install(PROGRAMS ${BINARY_NAME} DESTINATION ${BIN_PATH})
+        install(PROGRAMS ${CMAKE_BINARY_DIR}/${BINARY_NAME} DESTINATION ${BIN_PATH})
         install(FILES AUTHORS CHANGELOG COPYING README DESTINATION ${DOC_PATH})
-        install(FILES fleetingpm.desktop DESTINATION share/applications)
+        install(FILES ${CMAKE_BINARY_DIR}/fleetingpm.desktop DESTINATION share/applications)
         install(FILES data/icons/fleetingpm.png DESTINATION share/pixmaps)
         install(FILES data/icons/fleetingpm.png DESTINATION share/icons/hicolor/64x64/apps)
 
@@ -139,8 +147,8 @@ if(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
         
     else()
 
-        install(PROGRAMS ${BINARY_NAME} DESTINATION .)
-        install(FILES AUTHORS CHANGELOG COPYING README DESTINATION .)
+        install(PROGRAMS ${CMAKE_BINARY_DIR}/${BINARY_NAME} DESTINATION ${BIN_PATH})
+        install(FILES ${CMAKE_BINARY_DIR}/fleetingpm.desktop DESTINATION share/applications)
 
         # CPack config to create e.g. self-extracting packages
         set(CPACK_BINARY_STGZ "ON")
@@ -154,8 +162,8 @@ if(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
         
         set(CPACK_PACKAGE_FILE_NAME "fleetingpm-${VERSION}-linux-${CMAKE_HOST_SYSTEM_PROCESSOR}-${QT_VER_STR}")
         
-        set(CPACK_RESOURCE_FILE_LICENSE "COPYING")
-        set(CPACK_RESOURCE_FILE_README "README")
+        set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_SOURCE_DIR}/COPYING"
+        set(CPACK_RESOURCE_FILE_README "${CMAKE_SOURCE_DIR}/README")
         include(CPack)
        
     endif()
