@@ -36,7 +36,7 @@ if (UseQt5)
     find_package(Qt5Widgets REQUIRED)
 else()
     # Find Qt4 and needed additional components.
-    find_package(Qt4 4.7.0 REQUIRED COMPONENTS QtGui QtXml)
+    find_package(Qt4 4.7.0 REQUIRED COMPONENTS QtCore QtGui QtXml)
     include(${QT_USE_FILE})
     include_directories(${QT_INCLUDES})
 endif()
